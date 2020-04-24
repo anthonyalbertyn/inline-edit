@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import TextEdit from "../TextEdit";
 import "./Simulator.css";
 
-const Simulator = ({ children }) => {
+const Simulator = () => {
   const [isSimulatingFailure, setIsSimulatingFailure] = useState(false);
+  const [savedText, setSavedText] = useState("Hello World");
 
   const handleSimulateToggle = () => {
     setIsSimulatingFailure(!isSimulatingFailure);
@@ -17,10 +18,14 @@ const Simulator = ({ children }) => {
     ? "simulator-heading failure"
     : "simulator-heading";
 
-  const simulateSave = () => {
+  const simulateSave = (text) => {
     const promise = new Promise(function (resolve, reject) {
+      const performSave = () => {
+        setSavedText(text);
+        resolve();
+      };
       if (!isSimulatingFailure) {
-        setTimeout(resolve, 3000);
+        setTimeout(performSave, 3000);
       } else {
         setTimeout(reject, 3000);
       }
@@ -34,7 +39,7 @@ const Simulator = ({ children }) => {
         <div className={headingClass}>{simulatorHeadingText}</div>
         <button onClick={handleSimulateToggle}>Toggle Simulation</button>
       </div>
-      <TextEdit text="Hello World" save={simulateSave} />
+      <TextEdit text={savedText} save={simulateSave} />
     </div>
   );
 };
