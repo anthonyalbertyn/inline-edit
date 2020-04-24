@@ -1,0 +1,6 @@
+.text-edit {
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid gray;
+  min-height: 300px;
+}
