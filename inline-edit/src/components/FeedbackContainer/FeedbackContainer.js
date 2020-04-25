@@ -12,10 +12,20 @@ const FeedbackContainer = ({ children, type, message }) => {
         {message && <div className="feedback-container-message">{message}</div>}
       </div>
       <div className="feedback-container-icons">
-        {type === "success" && <CheckIcon />}
-        {type === "failure" && <CancelIcon />}
+        {type === "success" && (
+          <div className="feedback-success">
+            <CheckIcon />
+          </div>
+        )}
+        {type === "failure" && (
+          <div className="feedback-failure">
+            <CancelIcon />
+          </div>
+        )}
         {type === "spinner" && (
-          <CircularProgress color="default" size={20} thickness={3} />
+          <div className="feedback-spinner">
+            <CircularProgress color="inherit" size={20} thickness={3} />
+          </div>
         )}
       </div>
     </div>
