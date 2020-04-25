@@ -58,7 +58,7 @@ const TextEdit = ({ text, save }) => {
           <Button
             variant="outlined"
             size="small"
-            color="default"
+            color="inherit"
             startIcon={<TextFieldsIcon />}
             onClick={handleTextClick}
           >

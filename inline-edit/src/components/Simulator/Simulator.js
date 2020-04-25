@@ -40,7 +40,7 @@ const Simulator = () => {
         <div className={headingClass}>{simulatorHeadingText}</div>
         <Button
           variant="outlined"
-          color="default"
+          color="inherit"
           onClick={handleSimulateToggle}
           size="small"
         >
