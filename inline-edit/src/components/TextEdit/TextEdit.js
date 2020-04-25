@@ -5,11 +5,19 @@ import FeedbackContainer from "../FeedbackContainer";
 import "./TextEdit.css";
 
 const TextEdit = ({ text, save }) => {
+  const modes = {
+    EDIT: "edit",
+    VIEW: "view",
+    SAVE_IN_PROGRESS: "saveInProgress",
+    SAVE_SUCCESS: "saveSuccess",
+    SAVE_ERROR: "saveError",
+  };
+
   const [editText, setEditText] = useState("");
-  const [viewMode, setViewMode] = useState("view");
+  const [viewMode, setViewMode] = useState(modes.VIEW);
 
   const handleTextClick = () => {
-    setViewMode("edit");
+    setViewMode(modes.EDIT);
   };
 
   const handleTextChange = (event) => {
@@ -18,16 +26,16 @@ const TextEdit = ({ text, save }) => {
 
   const handleTextSave = () => {
     if (editText === text) {
-      setViewMode("view");
+      setViewMode(modes.VIEW);
       return;
     }
-    setViewMode("saveInProgress");
+    setViewMode(modes.SAVE_IN_PROGRESS);
     save(editText)
       .then(() => {
-        setViewMode("saveSuccess");
+        setViewMode(modes.SAVE_SUCCESS);
       })
       .catch(() => {
-        setViewMode("saveError");
+        setViewMode(modes.SAVE_ERROR);
         setEditText(text);
       });
   };
@@ -43,18 +51,18 @@ const TextEdit = ({ text, save }) => {
   }, [text]);
 
   useEffect(() => {
-    if (viewMode === "saveSuccess") {
-      setTimeout(() => setViewMode("view"), 1500);
+    if (viewMode === modes.SAVE_SUCCESS) {
+      setTimeout(() => setViewMode(modes.VIEW), 1500);
     }
-    if (viewMode === "saveError") {
-      setTimeout(() => setViewMode("view"), 2500);
+    if (viewMode === modes.SAVE_ERROR) {
+      setTimeout(() => setViewMode(modes.VIEW), 2500);
     }
-  }, [viewMode]);
+  }, [viewMode, modes]);
 
   return (
     <div className="text-edit">
       <div className="text-edit-text-wrapper">
-        {viewMode === "view" && (!text || text === "") && (
+        {viewMode === modes.VIEW && !text && (
           <Button
             variant="outlined"
             size="small"
@@ -65,12 +73,12 @@ const TextEdit = ({ text, save }) => {
             Add Text
           </Button>
         )}
-        {viewMode === "view" && (
+        {viewMode === modes.VIEW && text && (
           <p onClick={handleTextClick} title="Click on text to edit">
             {text}
           </p>
         )}
-        {viewMode === "edit" && (
+        {viewMode === modes.EDIT && (
           <input
             type="text"
             id="text"
@@ -83,17 +91,17 @@ const TextEdit = ({ text, save }) => {
             autoFocus
           />
         )}
-        {viewMode === "saveInProgress" && (
+        {viewMode === modes.SAVE_IN_PROGRESS && (
           <FeedbackContainer type="spinner">
             <p>{editText}</p>
           </FeedbackContainer>
         )}
-        {viewMode === "saveSuccess" && (
+        {viewMode === modes.SAVE_SUCCESS && (
           <FeedbackContainer type="success">
             <p>{text}</p>
           </FeedbackContainer>
         )}
-        {viewMode === "saveError" && (
+        {viewMode === modes.SAVE_ERROR && (
           <FeedbackContainer
             type="failure"
             message="Oops! Something has gone terribly wrong!"
