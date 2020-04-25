@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
 import TextEdit from "../TextEdit";
 import "./Simulator.css";
 
@@ -37,7 +38,14 @@ const Simulator = () => {
     <div className="simulator">
       <div className="simulator-control">
         <div className={headingClass}>{simulatorHeadingText}</div>
-        <button onClick={handleSimulateToggle}>Toggle Simulation</button>
+        <Button
+          variant="outlined"
+          color="default"
+          onClick={handleSimulateToggle}
+          size="small"
+        >
+          Toggle Simulation
+        </Button>
       </div>
       <TextEdit text={savedText} save={simulateSave} />
     </div>

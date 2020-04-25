@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import TextFieldsIcon from "@material-ui/icons/TextFields";
+import Button from "@material-ui/core/Button";
 import FeedbackContainer from "../FeedbackContainer";
 import "./TextEdit.css";
 
@@ -42,7 +44,7 @@ const TextEdit = ({ text, save }) => {
 
   useEffect(() => {
     if (viewMode === "saveSuccess" || viewMode === "saveError") {
-      setTimeout(() => setViewMode("view"), 3000);
+      setTimeout(() => setViewMode("view"), 3500);
     }
   }, [viewMode]);
 
@@ -64,9 +66,21 @@ const TextEdit = ({ text, save }) => {
     <div className="text-edit">
       <div className="text-edit-text-wrapper">
         {viewMode === "view" && (!text || text === "") && (
-          <button onClick={handleTextClick}>Add text</button>
+          <Button
+            variant="outlined"
+            size="small"
+            color="default"
+            startIcon={<TextFieldsIcon />}
+            onClick={handleTextClick}
+          >
+            Add Text
+          </Button>
         )}
-        {viewMode === "view" && <p onClick={handleTextClick}>{text}</p>}
+        {viewMode === "view" && (
+          <p onClick={handleTextClick} title="Click on text to edit">
+            {text}
+          </p>
+        )}
         {viewMode === "edit" && <TextInput />}
         {viewMode === "saveInProgress" && (
           <FeedbackContainer type="spinner">

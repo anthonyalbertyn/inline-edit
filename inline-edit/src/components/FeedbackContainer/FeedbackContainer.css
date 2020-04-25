@@ -1,4 +1,18 @@
 .feedback-container {
-  min-width: 250px;
-  min-height: 250px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.feedback-container-content {
+  min-width: 1rem;
+  min-height: 1rem;
+  padding-right: 2rem;
+}
+
+.feedback-container-message {
+  max-width: 300px;
+}
+
+.feedback-container-icons {
+  padding-top: 0.3rem;
 }
