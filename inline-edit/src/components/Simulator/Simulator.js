@@ -26,9 +26,9 @@ const Simulator = () => {
         resolve();
       };
       if (!isSimulatingFailure) {
-        setTimeout(performSave, 3000);
+        setTimeout(performSave, 1500);
       } else {
-        setTimeout(reject, 3000);
+        setTimeout(reject, 1500);
       }
     });
     return promise;

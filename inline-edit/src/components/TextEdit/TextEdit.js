@@ -43,24 +43,13 @@ const TextEdit = ({ text, save }) => {
   }, [text]);
 
   useEffect(() => {
-    if (viewMode === "saveSuccess" || viewMode === "saveError") {
-      setTimeout(() => setViewMode("view"), 3500);
+    if (viewMode === "saveSuccess") {
+      setTimeout(() => setViewMode("view"), 1500);
+    }
+    if (viewMode === "saveError") {
+      setTimeout(() => setViewMode("view"), 2500);
     }
   }, [viewMode]);
-
-  const TextInput = () => (
-    <input
-      type="text"
-      id="text"
-      className="text-edit-input"
-      value={editText}
-      onChange={handleTextChange}
-      onBlur={handleTextSave}
-      onKeyPress={handleKeyPress}
-      placeholder="Add text here"
-      autoFocus
-    />
-  );
 
   return (
     <div className="text-edit">
@@ -81,7 +70,19 @@ const TextEdit = ({ text, save }) => {
             {text}
           </p>
         )}
-        {viewMode === "edit" && <TextInput />}
+        {viewMode === "edit" && (
+          <input
+            type="text"
+            id="text"
+            className="text-edit-input"
+            value={editText}
+            onChange={handleTextChange}
+            onBlur={handleTextSave}
+            onKeyPress={handleKeyPress}
+            placeholder="Add text here"
+            autoFocus
+          />
+        )}
         {viewMode === "saveInProgress" && (
           <FeedbackContainer type="spinner">
             <p>{editText}</p>
